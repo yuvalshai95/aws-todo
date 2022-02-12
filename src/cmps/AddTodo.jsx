@@ -1,4 +1,6 @@
-export function AddTodo({ newTodoTxt, setNewTodoTxt, onAddTodo }) {
+import { useState } from 'react';
+export function AddTodo({ onAddTodo }) {
+    const [newTodoTxt, setNewTodoTxt] = useState('')
 
     const addTodo = () => {
         const todo = {

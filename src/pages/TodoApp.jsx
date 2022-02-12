@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Auth, API, graphqlOperation } from 'aws-amplify';
-import { listTodos, todosByOwner } from '../graphql/queries.js';
+import { todosByOwner } from '../graphql/queries.js';
 import { onCreateTodo, onDeleteTodo, onUpdateTodo } from '../graphql/subscriptions';
 import { createTodo, deleteTodo, updateTodo } from '../graphql/mutations'
 
@@ -11,11 +11,9 @@ import { AddTodo } from '../cmps/AddTodo.jsx';
 
 export function TodoApp() {
   const [todos, setTodos] = useState([])
-  const [newTodoTxt, setNewTodoTxt] = useState('')
   const [username, setUsername] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [nextToken, setNextToken] = useState(undefined)
-
 
   useEffect(() => {
     getLoggedInUser()
@@ -32,7 +30,10 @@ export function TodoApp() {
       graphqlOperation(onCreateTodo)
     ).subscribe({
       next: (todoData) => {
-        setTodos([todoData.value.data.onCreateTodo, ...todos])
+        // Get real time updates from loggedInUser only
+        if (todoData.value.data.onCreateTodo.owner === username) {
+          setTodos([todoData.value.data.onCreateTodo, ...todos])
+        }
       }
     });
     return () => {
@@ -192,8 +193,6 @@ export function TodoApp() {
       <div className="todo-card flex column">
         <h1 className="card-header"> Todo List</h1>
         <AddTodo
-          newTodoTxt={newTodoTxt}
-          setNewTodoTxt={setNewTodoTxt}
           onAddTodo={onAddTodo}
         />
         <TodoList
