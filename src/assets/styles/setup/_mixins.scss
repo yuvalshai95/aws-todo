@@ -1,0 +1,16 @@
+/* Media queries Breakpoint mixins */
+
+// 530px
+@mixin for-narrow-layout {
+  @media (min-width: $padded-break-narrow) {
+    @content;
+  }
+}
+
+// 760px
+@mixin for-normal-layout {
+  @media (min-width: $padded-break-normal) {
+    @content;
+  }
+}
+

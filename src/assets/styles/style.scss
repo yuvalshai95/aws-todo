@@ -1,0 +1,22 @@
+// Setup
+@import "setup/typography.scss";
+@import "setup/variables.scss";
+@import "setup/mixins.scss";
+
+// Basics
+@import "basics/helpers.scss";
+@import "basics/base.scss";
+@import "basics/buttons.scss";
+
+
+// PAGES
+@import "pages/todo-app.scss";
+
+// Components
+@import "cmps/app-header.scss";
+@import "cmps/loader.scss";
+@import "cmps/todo-list.scss";
+@import "cmps/todo-preview.scss";
+@import "cmps/add-todo.scss";
+
+

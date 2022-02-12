@@ -1,0 +1,35 @@
+.add-todo{
+    gap: 10px;
+    input{
+        flex-grow: 1;
+        border-radius: 1rem;
+        background-color: inherit;
+        border-color: rgb(212, 212, 212);
+        font-size: 18px;
+        padding: 10px;
+        color: white;
+
+        &::placeholder {
+            color: white;
+            opacity: 0.5;
+          }
+          
+
+        &:hover{
+            border-color: rgb(255, 255, 255);
+        }
+
+        &:focus {
+            border-color: rgb(92, 201, 252);
+            outline: none;
+          }
+        
+    }
+
+    .add-btn{
+        &:hover{
+            background-color: rgb(35, 155, 211);
+            cursor: pointer;
+        }
+    }
+}
