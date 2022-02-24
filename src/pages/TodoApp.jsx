@@ -8,12 +8,16 @@ import { createTodo, deleteTodo, updateTodo } from '../graphql/mutations'
 import { Loader } from '../cmps/Loader.jsx'
 import { TodoList } from '../cmps/TodoList.jsx';
 import { AddTodo } from '../cmps/AddTodo.jsx';
+import { ProgressBar } from '../cmps/ProgressBar.jsx'
+
+// Services
+import { showUserMsg } from '../services/event-bus.service.js'
 
 export function TodoApp() {
   const [todos, setTodos] = useState([])
   const [username, setUsername] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [nextToken, setNextToken] = useState(undefined)
+  const [progress, setProgress] = useState(null)
 
   useEffect(() => {
     getLoggedInUser()
@@ -22,6 +26,10 @@ export function TodoApp() {
   useEffect(() => {
     onLoadTodos()
   }, [username])
+
+  useEffect(() => {
+    onChangeProgressBar()
+  }, [todos])
 
   // onCreateTodo subscribe
   useEffect(() => {
@@ -32,7 +40,9 @@ export function TodoApp() {
       next: (todoData) => {
         // Get real time updates from loggedInUser only
         if (todoData.value.data.onCreateTodo.owner === username) {
-          setTodos([todoData.value.data.onCreateTodo, ...todos])
+          const updatedTodos = [todoData.value.data.onCreateTodo, ...todos]
+          setTodos(updatedTodos)
+          showUserMsg('Todo Added successfully!')
         }
       }
     });
@@ -52,6 +62,7 @@ export function TodoApp() {
         const deletedTodoId = todoData.value.data.onDeleteTodo.id
         const updatedTodos = todos.filter(curTodo => (curTodo.id !== deletedTodoId))
         setTodos(updatedTodos)
+        showUserMsg('Todo Deleted successfully!')
       }
     });
     return () => {
@@ -73,6 +84,7 @@ export function TodoApp() {
           return curTodo
         })
         setTodos(updatedTodos)
+        showUserMsg('Todo edit successfully!')
       }
     });
     return () => {
@@ -83,7 +95,6 @@ export function TodoApp() {
 
   const onLoadTodos = async () => {
     if (!username) return
-    setIsLoading(true)
     try {
       const variables = {
         owner: username,
@@ -96,8 +107,6 @@ export function TodoApp() {
       setNextToken(data.todosByOwner.nextToken)
     } catch (err) {
       console.log('Could not get todos', err)
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -187,11 +196,23 @@ export function TodoApp() {
     }
   }
 
-  if (isLoading) return <Loader />
+  const onChangeProgressBar = () => {
+    const totalTodos = todos.length
+    const finishedTodos = todos.reduce((finishedTodos, todo) => {
+      if (todo.isDone) finishedTodos++
+      return finishedTodos
+    }, 0)
+    const progress = (finishedTodos / totalTodos) * 100
+    setProgress(progress)
+  }
+
+
+  if (!todos.length) return <Loader />
   return (
     <section className="todo-app flex justify-center ">
       <div className="todo-card flex column">
         <h1 className="card-header"> Todo List</h1>
+        <ProgressBar progress={progress} />
         <AddTodo
           onAddTodo={onAddTodo}
         />

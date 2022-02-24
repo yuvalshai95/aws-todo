@@ -4,32 +4,22 @@
         flex-grow: 1;
         border-radius: 1rem;
         background-color: inherit;
-        border-color: rgb(212, 212, 212);
+        border-color: var( --primary-background-hover-color);
         font-size: 18px;
         padding: 10px;
-        color: white;
+        color: var(--text-color);
+      
 
         &::placeholder {
-            color: white;
+            color: var(--text-color);
             opacity: 0.5;
           }
           
-
-        &:hover{
-            border-color: rgb(255, 255, 255);
-        }
-
         &:focus {
-            border-color: rgb(92, 201, 252);
+            border-color:var(--input-focus-color);
+            box-shadow: 0 0 0 1px var(--input-focus-color);
             outline: none;
           }
         
-    }
-
-    .add-btn{
-        &:hover{
-            background-color: rgb(35, 155, 211);
-            cursor: pointer;
-        }
     }
 }

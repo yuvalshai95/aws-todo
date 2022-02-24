@@ -2,7 +2,11 @@
     padding: 15px;
     font-size: 18px;
     border-radius: 0.5em;
-    background-color: #5cc9fc;
+    background-color: var( --primary-background-color);
     border: none;
-    cursor: pointer;
+    color:#fff;
+
+    &:hover{
+        background-color: var(--primary-background-hover-color);
+    }
 }

@@ -1,17 +1,19 @@
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Amplify from "aws-amplify";
 import awsExports from "./aws-exports";
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css';
-
 
 // Routes
 import routes from './routes.js';
 
 // Cmps
 import { AppHeader } from './cmps/AppHeader';
+import { UserMsg } from './cmps/UserMsg';
+
+
 
 // The aws-exports file holds the information required
 // to connect and interact with the back-end service.
@@ -23,12 +25,13 @@ export function RootCmp() {
     <div className="root-cmp">
       <AppHeader />
       <main>
-        <Switch>
+        <Routes>
           {routes.map(route => (
-            <Route key={route.path} component={route.component} path={route.path} />
+            <Route key={route.path} element={route.component} path={route.path} />
           ))}
-        </Switch>
+        </Routes>
       </main>
+      <UserMsg />
     </div>
 
   );

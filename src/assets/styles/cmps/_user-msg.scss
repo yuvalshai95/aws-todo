@@ -1,0 +1,41 @@
+.user-msg {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    width: 350px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+    background: var(--header-background-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 3px;
+    .close-btn {
+        color: var(--text-color);
+        background-color: inherit;
+        border: none;
+        padding: 3px;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        .close-icon {
+            box-sizing: unset;
+            line-height: 10px;
+            padding: 3px;
+            border-radius: 2px;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.247);
+            }
+        }
+    }
+    p {
+        text-align: left;
+    }
+    &.info {}
+    &.warning {
+        background-color: rgb(189, 89, 89);
+    }
+}

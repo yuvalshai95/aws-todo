@@ -6,7 +6,7 @@
     transition: background-color .3s;
 
     &:hover{
-        background-color: rgba(230, 230, 230, 0.075);
+        background-color: var(--input-hover-color);
     }
 
     .preview-txt{
@@ -16,7 +16,7 @@
         font-size: 1.3rem;
         flex-grow: 1;
         padding: 10px;
-        color: white;
+        color: var(--text-color);
         font-family: acme,sans-serif;
         &.done{
             text-decoration: line-through;
@@ -31,7 +31,7 @@
 
     .badges-container{
         svg{
-            color: white;
+            color: var(--text-color);
             cursor: pointer;
             font-size: 18px;
             opacity: 0.7;

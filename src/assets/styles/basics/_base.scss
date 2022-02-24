@@ -1,4 +1,16 @@
 :root {
+    // Light mode colors
+    --background-color:#fafafa;
+    --header-background-color:#D8D2CB;
+    --card-background-color:#e9e9e9;
+    --user-msg-background-color:#D8D2CB;
+    --text-color:#524A4E;
+    // --text-color:rgb(0, 0, 0);
+    --text-color-active:#047d95;
+    --primary-background-color:#047d95;
+    --primary-background-hover-color:#005566;
+    --input-focus-color:#00404d;
+    --input-hover-color: rgba(39, 39, 39, 0.075);
 }
 
 * {
@@ -14,7 +26,17 @@ html {
 body {
     margin: 0;
     font-family: acme,sans-serif;
-    background-color: rgb(27, 27, 27);
+    background-color: var(--background-color);
+
+    transition: all ease-in-out .4s;
+    &.dark-mode{
+        // Dark mode colors
+        --background-color:#1b1b1b;
+        --header-background-color:#37393D;
+        --card-background-color:#37393D;
+        --text-color:#fff;
+        --input-hover-color: rgba(230, 230, 230, 0.075);
+    }
 }
 
 img {
@@ -33,9 +55,11 @@ h6 {
 }
 
 
-
-
 a{
     text-decoration: none;
     color: inherit;
+}
+
+button{
+    cursor: pointer;
 }
