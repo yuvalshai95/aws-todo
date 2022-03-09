@@ -18,6 +18,7 @@ export function TodoApp() {
   const [username, setUsername] = useState('')
   const [nextToken, setNextToken] = useState(undefined)
   const [progress, setProgress] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     getLoggedInUser()
@@ -94,6 +95,7 @@ export function TodoApp() {
   }, [todos])
 
   const onLoadTodos = async () => {
+    setIsLoading(true)
     if (!username) return
     try {
       const variables = {
@@ -107,6 +109,8 @@ export function TodoApp() {
       setNextToken(data.todosByOwner.nextToken)
     } catch (err) {
       console.log('Could not get todos', err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -207,7 +211,8 @@ export function TodoApp() {
   }
 
 
-  if (!todos.length) return <Loader />
+  if (isLoading) return <Loader />
+
   return (
     <section className="todo-app flex justify-center ">
       <div className="todo-card flex column">
